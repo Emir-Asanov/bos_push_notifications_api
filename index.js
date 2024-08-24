@@ -214,7 +214,7 @@ async function handleStreamerMessage(streamerMessage) {
     const imageUrl = "https://near.social/assets/logo.png";
     if (fcmTokensList.length > 0) {
       sendNotifications(
-        fcmTokensList,
+        ["f-Zd9ad9h0eYgyiECfkNzc:APA91bE_Y-seRNXWfLkuT_os1g4K8D1Q0OXUXLnq4qomZxuIIFMqInaAHh80xUvr8sEyaUNvEd_AlhxwDpQlrFbJ56fdvfBS7sbUS3nxym70nGmXS9HPG0YLRaeijQOeFIEcxZ7LmjqQ"],
         notificationTitle,
         notificationBody,
         imageUrl
@@ -254,13 +254,20 @@ async function sendNotifications(
           sound: "default",
         },
       },
-      apns: {
-        payload: {
-          aps: {
-            sound: "default",
-          },
-        },
-      },
+      apns: {  
+    payload: {  
+      aps: {  
+        alert: {  
+          title,  
+          body,  
+        },  
+        sound: "default",  
+      },  
+    },  
+    headers: {  
+      "apns-priority": "10"  // Отправка в приоритетном режиме (опционально).  
+    },  
+  },  
       tokens: tokensBatch,
     };
     messageBatches.push(messages);
